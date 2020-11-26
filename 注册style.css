@@ -70,7 +70,7 @@ body
     padding: 0;
     color: #FFF;
     font-weight: bold;
-    cursor: pointer;
+    cursor: default;
 }
 a{
       bottom: 20px;

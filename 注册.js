@@ -7,8 +7,9 @@ var error1 = false, error2 = false, error3 = false, error4 = false;
 var sub = document.querySelector('.submit');
 var check = document.getElementById('check');
 var flag = 0;
+// 判断用户名称
 uname.onblur = function () {
-    if (this.value.length < 6 || this.value.length > 16) {
+    if (this.value.length < 5 || this.value.length > 16) {
         message[0].className = 'message wrong'
         message[0].innerHTML = '输入不符合要求';
         error1 = false;
@@ -19,6 +20,7 @@ uname.onblur = function () {
         error1 = true;
     }
 }
+// 判断邮箱
 uemail.onblur = function () {
     var reg = /^[A-Za-z0-9_.]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
     isok = reg.test(this.value);
@@ -35,6 +37,7 @@ uemail.onblur = function () {
 
     }
 }
+// 判断密码
 upwd.onblur = function () {
     if (this.value.length < 5 || this.value.length > 18) {
         message[2].className = 'message wrong'
@@ -49,6 +52,7 @@ upwd.onblur = function () {
 
     }
 }
+// 确认密码判断
 u_pwd.onblur = function () {
     if (this.value !== upwd.value) {
         message[3].className = 'message wrong'
@@ -65,17 +69,26 @@ u_pwd.onblur = function () {
 }
 check.onclick = function () {
     if (flag == 0) {
+        sub.onmouseover = function () {
+            sub.style.backgroundColor = ' #ff8500';
+        }
+        sub.onmouseout = function () {
+            sub.style.backgroundColor = '#000';
+        }
         sub.removeAttribute('disabled');
         sub.style.backgroundColor = '#000';
+        sub.style.cursor = 'pointer';
         flag = 1;
     }
     else {
         sub.disabled = 'true';
+        sub.style.cursor = 'default';
         sub.style.backgroundColor = '#999';
         flag = 0;
 
     }
 }
+//提交表单
 sub.onclick = function () {
     // alert('这里');
     if (error1 && error2 && error3 && error4) {
@@ -91,26 +104,22 @@ sub.onclick = function () {
             })
             , contentType: 'application/json'
             , error: function (err) {
-                alert("111")
+                alert("请求失败！")
             }
             , success: function (resp) {
                 if (resp.Header.header.code != 200) {
-                    window.alert(resp.Header.header.msg)
+                    window.alert(resp.Header.header.msg);
                     window.alert("注册失败！");
-
                 }
                 else {
-                    window.alert("注册成功！");
-                    // window.location.href = '登录.html';
-                    window.alert("ok");
+                    window.alert("注册成功，准备跳转页面！");
+                    window.location.href = '登录.html';
+
                 }
 
-                // qwery('#content').html(resp.content)
             }
         })
-        window.alert("注册成功！");
-        // window.location.href = '登录.html';
-        // alert("ok")
+        window.alert("已提交！");
     }
     else {
 
